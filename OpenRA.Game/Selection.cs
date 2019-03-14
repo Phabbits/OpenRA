@@ -88,7 +88,7 @@ namespace OpenRA
 			// TODO: Ship this into an INotifySelection trait to remove the engine dependency on Selectable
 			foreach (var actor in actors)
 			{
-				if (actor.Owner != world.LocalPlayer || !actor.IsInWorld)
+				if (!actor.Owner.IsMeleedWith(world.LocalPlayer) || !actor.IsInWorld) //MODCODE
 					continue;
 
 				var selectable = actor.Info.TraitInfoOrDefault<SelectableInfo>();
@@ -115,7 +115,7 @@ namespace OpenRA
 			foreach (var cg in controlGroups.Values)
 			{
 				// note: NOT `!a.IsInWorld`, since that would remove things that are in transports.
-				cg.RemoveAll(a => a.Disposed || a.Owner != world.LocalPlayer);
+				cg.RemoveAll(a => a.Disposed || !a.Owner.IsMeleedWith(world.LocalPlayer)); //MODCODE
 			}
 		}
 
@@ -135,7 +135,7 @@ namespace OpenRA
 				for (var i = 0; i < 10; i++)	/* all control groups */
 					controlGroups[i].RemoveAll(a => actors.Contains(a));
 
-				controlGroups[group].AddRange(actors.Where(a => a.Owner == world.LocalPlayer));
+				controlGroups[group].AddRange(actors.Where(a => a.Owner.IsMeleedWith(world.LocalPlayer))); //MODCODE
 				return;
 			}
 

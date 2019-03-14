@@ -189,8 +189,13 @@ namespace OpenRA
 			// Observers are considered allies to active combatants
 			return p == null || Stances[p] == Stance.Ally || (p.Spectating && !NonCombatant);
 		}
+        public bool IsMeleedWith(Player p) //MODCODE
+        {
+            // Observers are considered allies to active combatants
+            return p == null || Stances[p] == Stance.Ally || (p.Spectating && !NonCombatant);
+        }
 
-		public Color PlayerStanceColor(Actor a)
+        public Color PlayerStanceColor(Actor a)
 		{
 			var player = a.World.RenderPlayer ?? a.World.LocalPlayer;
 			if (player != null && !player.Spectating)

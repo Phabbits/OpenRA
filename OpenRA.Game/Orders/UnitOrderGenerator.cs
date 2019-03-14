@@ -129,7 +129,7 @@ namespace OpenRA.Orders
 			if (mi.Button != Game.Settings.Game.MouseButtonPreference.Action)
 				return null;
 
-			if (self.Owner != self.World.LocalPlayer && !self.Owner.IsAlliedWith(self.World.LocalPlayer)) //MODCODE
+			if (self.Owner != self.World.LocalPlayer && !self.Owner.IsMeleedWith(self.World.LocalPlayer)) //MODCODE
 				return null;
 
 			if (self.World.IsGameOver)

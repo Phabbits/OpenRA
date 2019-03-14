@@ -1,0 +1,4 @@
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Server\obj\x86\Debug\OpenRA.Server.exe
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Server\obj\x86\Debug\OpenRA.Server.pdb
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Server.exe
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Server.pdb
