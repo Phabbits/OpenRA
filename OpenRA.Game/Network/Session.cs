@@ -125,9 +125,11 @@ namespace OpenRA.Network
 			public bool IsReady { get { return State == ClientState.Ready; } }
 			public bool IsInvalid { get { return State == ClientState.Invalid; } }
 			public bool IsObserver { get { return Slot == null; } }
+            //MOD CODE
+            public bool IsMelee;
 
-			// Linked to the online player database
-			public string Fingerprint;
+            // Linked to the online player database
+            public string Fingerprint;
 
 			public MiniYamlNode Serialize()
 			{

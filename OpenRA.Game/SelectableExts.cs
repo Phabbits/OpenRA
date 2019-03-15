@@ -31,7 +31,7 @@ namespace OpenRA.Traits
 			var basePriority = a.Info.TraitInfo<SelectableInfo>().Priority;
 			var lp = a.World.LocalPlayer;
 
-			if (a.Owner == lp || lp == null)
+			if (a.Owner.IsMeleedWith(lp) || lp == null) //MOD CODE
 				return basePriority;
 
 			switch (lp.Stances[a.Owner])

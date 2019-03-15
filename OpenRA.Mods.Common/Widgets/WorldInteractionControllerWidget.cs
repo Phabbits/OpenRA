@@ -130,7 +130,7 @@ namespace OpenRA.Mods.Common.Widgets
 						var unit = World.ScreenMap.ActorsAtMouse(mousePos)
 							.WithHighestSelectionPriority(mousePos);
 
-						if (unit != null && unit.Owner == (World.RenderPlayer ?? World.LocalPlayer))
+						if (unit != null && unit.Owner.IsMeleedWith(World.RenderPlayer ?? World.LocalPlayer)) //MOD CODE
 						{
 							var s = unit.TraitOrDefault<Selectable>();
 							if (s != null)
@@ -314,7 +314,7 @@ namespace OpenRA.Mods.Common.Widgets
 		{
 			return actors.Where(a =>
 			{
-				if (a.Owner != owner)
+				if (!a.Owner.IsMeleedWith(owner)) //MOD CODE
 					return false;
 
 				var s = a.TraitOrDefault<Selectable>();

@@ -67,7 +67,10 @@ namespace OpenRA
 		public bool HasObjectives = false;
 		public bool Spectating;
 
-		public World World { get; private set; }
+        //MOD CODE
+        public bool IsMeleed;
+
+        public World World { get; private set; }
 
 		readonly bool inMissionMap;
 		readonly IUnlocksRenderPlayer[] unlockRenderPlayer;
@@ -139,6 +142,9 @@ namespace OpenRA
 				BotType = client.Bot;
 				Faction = ChooseFaction(world, client.Faction, !pr.LockFaction);
 				DisplayFaction = ChooseDisplayFaction(world, client.Faction);
+
+                //MOD CODE
+                IsMeleed = client.IsMelee;
 			}
 			else
 			{
@@ -189,10 +195,11 @@ namespace OpenRA
 			// Observers are considered allies to active combatants
 			return p == null || Stances[p] == Stance.Ally || (p.Spectating && !NonCombatant);
 		}
+
         public bool IsMeleedWith(Player p) //MODCODE
         {
             // Observers are considered allies to active combatants
-            return p == null || Stances[p] == Stance.Ally || (p.Spectating && !NonCombatant);
+            return p == null || (Stances[p] == Stance.Ally && IsMeleed);
         }
 
         public Color PlayerStanceColor(Actor a)

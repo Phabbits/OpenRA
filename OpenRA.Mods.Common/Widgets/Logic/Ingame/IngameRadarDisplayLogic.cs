@@ -33,7 +33,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			ticker.OnTick = () =>
 			{
 				radarEnabled = devMode.DisableShroud || world.ActorsHavingTrait<ProvidesRadar>(r => !r.IsTraitDisabled)
-					.Any(a => a.Owner == world.LocalPlayer);
+					.Any(a => a.Owner.IsMeleedWith(world.LocalPlayer)); //MODCODE
 
 				if (radarEnabled != cachedRadarEnabled)
 					Game.Sound.PlayNotification(world.Map.Rules, null, "Sounds", radarEnabled ? radar.SoundUp : radar.SoundDown, null);

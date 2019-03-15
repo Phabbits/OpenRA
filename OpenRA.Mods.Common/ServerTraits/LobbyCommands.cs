@@ -43,7 +43,8 @@ namespace OpenRA.Mods.Common.Server
 			{ "faction", Faction },
 			{ "team", Team },
 			{ "spawn", Spawn },
-			{ "color", Color },
+            { "melee", Melee }, //MOD CODE
+            { "color", Color },
 			{ "sync_lobby", SyncLobby }
 		};
 
@@ -784,7 +785,43 @@ namespace OpenRA.Mods.Common.Server
 			return true;
 		}
 
-		static bool Color(S server, Connection conn, Session.Client client, string s)
+        static bool Melee(S server, Connection conn, Session.Client client, string s) //MOD CODE
+        {
+            var parts = s.Split(' ');
+            var targetClient = server.LobbyInfo.ClientWithIndex(Exts.ParseIntegerInvariant(parts[0]));
+            var meleeClient = server.LobbyInfo.ClientWithIndex(Exts.ParseIntegerInvariant(parts[1]));
+
+            // Only the host can change other client's info
+            if (targetClient.Index != client.Index && !client.IsAdmin)
+                return true;
+
+            // Spectators don't need a spawnpoint
+            if (targetClient.Slot == null)
+                return true;
+
+            // Map has disabled spawn changes
+            if (server.LobbyInfo.Slots[targetClient.Slot].LockSpawn)
+                return true;
+
+            if (targetClient.IsMelee)
+            {
+                targetClient.IsMelee = false;
+                server.SendOrderTo(conn, "Message", "Client " + targetClient.Index + " is no longer meleed with host");
+            }
+            else
+            {
+                meleeClient.IsMelee = true; // Host
+                targetClient.IsMelee = true;
+                targetClient.Team = meleeClient.Team;
+                server.SendOrderTo(conn, "Message", "Client " + targetClient.Index + " is meleed with host: " + meleeClient.Index);
+            }
+
+            server.SyncLobbyClients();
+
+            return true;
+        }
+
+        static bool Color(S server, Connection conn, Session.Client client, string s)
 		{
 			var parts = s.Split(' ');
 			var targetClient = server.LobbyInfo.ClientWithIndex(Exts.ParseIntegerInvariant(parts[0]));

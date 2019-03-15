@@ -265,7 +265,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var owned = orderManager.LobbyInfo.Clients.Any(c => c.SpawnPoint == selectedSpawn);
 			if (selectedSpawn == 0 || !owned)
 				orderManager.IssueOrder(Order.Command("spawn {0} {1}".F((playerToMove ?? orderManager.LocalClient).Index, selectedSpawn)));
-		}
+            else //MOD CODE
+            {
+                var locals = orderManager.LobbyInfo.Clients.Where(c => c.SpawnPoint == selectedSpawn);
+                var melee = locals.FirstOrDefault(c => ((selectedSpawn == 0) ^ (c.SpawnPoint == 0) && !c.IsObserver));
+                orderManager.IssueOrder(Order.Command("melee {0} {1}".F((playerToMove ?? orderManager.LocalClient).Index, (melee ?? orderManager.LocalClient).Index)));
+            }
+        }
 
 		public static Color LatencyColor(Session.ClientPing ping)
 		{

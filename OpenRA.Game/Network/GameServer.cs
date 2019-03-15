@@ -28,8 +28,10 @@ namespace OpenRA.Network
 		public readonly bool IsAdmin;
 		public readonly bool IsSpectator;
 		public readonly bool IsBot;
+        //MOD CODE
+        public readonly bool IsMelee;
 
-		public GameClient() { }
+        public GameClient() { }
 
 		public GameClient(Session.Client c)
 		{
@@ -42,6 +44,8 @@ namespace OpenRA.Network
 			IsAdmin = c.IsAdmin;
 			IsSpectator = c.Slot == null && c.Bot == null;
 			IsBot = c.Bot != null;
+            //MOD CODE
+            IsMelee = c.IsMelee;
 		}
 	}
 
