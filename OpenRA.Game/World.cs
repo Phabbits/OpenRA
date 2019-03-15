@@ -46,7 +46,7 @@ namespace OpenRA
 
 		public Player[] Players = new Player[0];
 
-		public void SetPlayers(IEnumerable<Player> players, Player localPlayer)
+        public void SetPlayers(IEnumerable<Player> players, Player localPlayer)
 		{
 			if (Players.Length > 0)
 				throw new InvalidOperationException("Players are fixed once they have been set.");
@@ -185,11 +185,18 @@ namespace OpenRA
 
 			// Set defaults for any unset stances
 			foreach (var p in Players)
-				foreach (var q in Players)
-					if (!p.Stances.ContainsKey(q))
-						p.Stances[q] = Stance.Neutral;
+                foreach (var q in Players)
+                    if (!p.Stances.ContainsKey(q))
+                        p.Stances[q] = Stance.Neutral;
 
-			Game.Sound.SoundVolumeModifier = 1.0f;
+            //MOD CODE for resource sharing done in PlayerResources.cs
+            foreach (var p in Players)
+                foreach (var q in Players)
+                    if (p.IsMeleedWith(q))
+                        if (p.MeleeSpawn == q.SpawnPoint) //Q is P's host
+                            p.MeleeHost = q;
+            
+            Game.Sound.SoundVolumeModifier = 1.0f;
 
 			gameInfo = new GameInformation
 			{
@@ -363,7 +370,12 @@ namespace OpenRA
 
 				ActorsWithTrait<ITick>().DoTimed(x => x.Trait.Tick(x.Actor), "Trait");
 
-				effects.DoTimed(e => e.Tick(this), "Effect");
+
+                //MOD CODE
+                // Share resources between melee players
+
+
+                effects.DoTimed(e => e.Tick(this), "Effect");
 			}
 
 			while (frameEndActions.Count != 0)

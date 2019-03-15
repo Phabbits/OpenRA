@@ -115,8 +115,17 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void GiveResources(int num)
 		{
-			Resources += num;
-			Earned += num;
+            //MOD CODE Melee Host set in World.cs
+            if (owner.MeleeHost != null)
+            {
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources += num;
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Earned += num;
+            }
+            else
+            {
+                Resources += num;
+                Earned += num;
+            }
 
 			if (Resources > ResourceCapacity)
 			{
@@ -128,8 +137,18 @@ namespace OpenRA.Mods.Common.Traits
 		public bool TakeResources(int num)
 		{
 			if (Resources < num) return false;
-			Resources -= num;
-			Spent += num;
+
+            //MOD CODE Melee Host set in World.cs
+            if (owner.MeleeHost != null)
+            {
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources -= num;
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Spent += num;
+            }
+            else
+            {
+                Resources -= num;
+                Spent += num;
+            }
 
 			return true;
 		}
@@ -181,24 +200,46 @@ namespace OpenRA.Mods.Common.Traits
 				return false;
 			}
 
-			// Spend ore before cash
-			Resources -= num;
-			Spent += num;
+            // Spend ore before cash
+            //MOD CODE Melee Host set in World.cs
+            if (owner.MeleeHost != null)
+            {
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources -= num;
+                owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Spent += num;
+            }
+            else
+            {
+                Resources -= num;
+                Spent += num;
+            }
 			if (Resources < 0)
 			{
-				Cash += Resources;
-				Resources = 0;
-			}
+                //MOD CODE Melee Host set in World.cs
+                if (owner.MeleeHost != null)
+                {
+                    owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Cash += Resources;
+                    owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources = 0;
+                }
+                else
+                {
+                    Cash += Resources;
+                    Resources = 0;
+                }
+            }
 
 			return true;
 		}
 
 		void ITick.Tick(Actor self)
 		{
-			// PERF: Avoid LINQ.
-			ResourceCapacity = 0;
+            //MOD CODE Set resources to Melee Host
+            if (owner.MeleeHost != null)
+                Resources = owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources;
+
+            // PERF: Avoid LINQ.
+            ResourceCapacity = 0;
 			foreach (var tp in self.World.ActorsWithTrait<IStoreResources>())
-				if (tp.Actor.Owner == owner)
+				if (tp.Actor.Owner.IsMeleedWith(owner))
 					ResourceCapacity += tp.Trait.Capacity;
 
 			if (Resources > ResourceCapacity)

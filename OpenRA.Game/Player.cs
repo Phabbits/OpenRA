@@ -70,6 +70,7 @@ namespace OpenRA
         //MOD CODE
         public bool IsMeleed;
         public int MeleeSpawn = -1;
+        public Player MeleeHost;
 
         public World World { get; private set; }
 
@@ -146,6 +147,8 @@ namespace OpenRA
 
                 //MOD CODE
                 IsMeleed = client.IsMelee;
+                MeleeSpawn = client.MeleeSpawn;
+                SpawnPoint = client.SpawnPoint;
 			}
 			else
 			{
