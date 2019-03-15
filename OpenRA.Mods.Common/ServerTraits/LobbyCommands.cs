@@ -806,6 +806,7 @@ namespace OpenRA.Mods.Common.Server
             if (targetClient.IsMelee)
             {
                 targetClient.IsMelee = false;
+                targetClient.MeleeSpawn = -1;
                 server.SendOrderTo(conn, "Message", "Client " + targetClient.Index + " is no longer meleed with host");
             }
             else
@@ -813,6 +814,7 @@ namespace OpenRA.Mods.Common.Server
                 meleeClient.IsMelee = true; // Host
                 targetClient.IsMelee = true;
                 targetClient.Team = meleeClient.Team;
+                targetClient.MeleeSpawn = meleeClient.SpawnPoint;
                 server.SendOrderTo(conn, "Message", "Client " + targetClient.Index + " is meleed with host: " + meleeClient.Index);
             }
 
