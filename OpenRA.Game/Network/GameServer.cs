@@ -30,7 +30,6 @@ namespace OpenRA.Network
 		public readonly bool IsBot;
         //MOD CODE
         public readonly bool IsMelee;
-        public readonly int MeleeSpawn;
 
         public GameClient() { }
 
@@ -47,7 +46,6 @@ namespace OpenRA.Network
 			IsBot = c.Bot != null;
             //MOD CODE
             IsMelee = c.IsMelee;
-            MeleeSpawn = c.MeleeSpawn;
 		}
 	}
 

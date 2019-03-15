@@ -127,7 +127,6 @@ namespace OpenRA.Network
 			public bool IsObserver { get { return Slot == null; } }
             //MOD CODE
             public bool IsMelee;
-            public int MeleeSpawn = -1;
 
             // Linked to the online player database
             public string Fingerprint;
