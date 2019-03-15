@@ -98,10 +98,6 @@ namespace OpenRA.Mods.Common.Traits
 					? ChooseSpawnPoint(world, available, taken)
 					: spawns[client.SpawnPoint - 1];
 
-                //MOD CODE
-                if (client.MeleeSpawn >= 0)
-                    spid = spawns[client.MeleeSpawn - 1];
-
 				Start.Add(player, spid);
 
 				player.SpawnPoint = (client == null || client.SpawnPoint == 0)

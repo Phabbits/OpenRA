@@ -69,7 +69,6 @@ namespace OpenRA
 
         //MOD CODE
         public bool IsMeleed;
-        public int MeleeSpawn = -1;
 
         public World World { get; private set; }
 
