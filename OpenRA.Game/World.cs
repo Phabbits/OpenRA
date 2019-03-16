@@ -193,7 +193,7 @@ namespace OpenRA
             foreach (var p in Players)
                 foreach (var q in Players)
                     if (p.IsMeleedWith(q))
-                        if (p.MeleeSpawn == q.SpawnPoint) //Q is P's host
+                        if (q.IsMeleed)//if (p.MeleeSpawn == q.SpawnPoint) //Q is P's host
                             p.MeleeHost = q;
             
             Game.Sound.SoundVolumeModifier = 1.0f;

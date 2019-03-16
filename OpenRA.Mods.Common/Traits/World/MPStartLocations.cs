@@ -99,7 +99,7 @@ namespace OpenRA.Mods.Common.Traits
 					: spawns[client.SpawnPoint - 1];
 
                 //MOD CODE
-                if (client.MeleeSpawn > 0)
+                if (client.MeleeSpawn >= 0)
                     spid = spawns[client.MeleeSpawn - 1];
 
 				Start.Add(player, spid);

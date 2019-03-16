@@ -819,6 +819,7 @@ namespace OpenRA.Mods.Common.Server
             }
 
             server.SyncLobbyClients();
+            server.SyncLobbySlots();
 
             return true;
         }

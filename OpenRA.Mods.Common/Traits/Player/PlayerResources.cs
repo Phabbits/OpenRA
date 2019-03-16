@@ -161,8 +161,12 @@ namespace OpenRA.Mods.Common.Traits
 				{
 					checked
 					{
-						Cash += num;
-					}
+                        //MOD CODE Melee Host set in World.cs
+                        if (owner.MeleeHost != null)
+                            owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Cash += num;
+                        else
+                            Cash += num;
+                    }
 				}
 				catch (OverflowException)
 				{
@@ -176,8 +180,12 @@ namespace OpenRA.Mods.Common.Traits
 				{
 					checked
 					{
-						Earned += num;
-					}
+                        //MOD CODE Melee Host set in World.cs
+                        if (owner.MeleeHost != null)
+                            owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Earned += num;
+                        else
+                            Earned += num;
+                    }
 				}
 				catch (OverflowException)
 				{
@@ -234,7 +242,11 @@ namespace OpenRA.Mods.Common.Traits
 		{
             //MOD CODE Set resources to Melee Host
             if (owner.MeleeHost != null)
+            {
                 Resources = owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Resources;
+                Cash = owner.MeleeHost.PlayerActor.Trait<PlayerResources>().Cash;
+            }
+                
 
             // PERF: Avoid LINQ.
             ResourceCapacity = 0;
