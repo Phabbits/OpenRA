@@ -2,4 +2,6 @@ C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\Ope
 C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\OpenRA.Game.pdb
 C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game.exe
 C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game.pdb
-C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\OpenRA.Game.csprojResolveAssemblyReference.cache
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\OpenRA.Game.csprojAssemblyReference.cache
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\OpenRA.Game.csproj.CoreCompileInputs.cache
+C:\Users\GabrielJosephFrey\Documents\GitHub\OpenRA\OpenRA.Game\obj\x86\Debug\OpenRA.Game.csproj.CopyComplete

@@ -203,7 +203,7 @@ namespace OpenRA
         public bool IsMeleedWith(Player p) //MODCODE
         {
             // Observers are considered allies to active combatants
-            return p == null || (Stances[p] == Stance.Ally && IsMeleed);
+            return p == null || (Stances[p] == Stance.Ally && IsMeleed) || p == this;
         }
 
         public Color PlayerStanceColor(Actor a)
